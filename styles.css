@@ -1,0 +1,46 @@
+body {
+    background-color: blanchedalmond;
+    font-family: 'Red Hat Display', Courier, monospace;
+}
+
+h1 {
+    margin: auto;
+    padding: 1em 1em 1em 1em;
+    border-color: blueviolet;
+    border-style: dotted;
+    border-width: 1em;
+    color: darkgreen;
+}
+
+h2 {
+    color: tomato;
+}
+
+p {
+    font-size: 1.5em;
+    line-height: 2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: magenta;
+}
+
+ol {
+    color: magenta;
+}
+
+img {
+    border-radius: 10%;
+}
+
+footer {
+    text-align: center;
+    margin-top: 5em;
+    padding: 1em 1em 1em 1em;
+    font-size: smaller;
+}
