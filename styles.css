@@ -5,15 +5,19 @@ body {
 
 h1 {
     margin: auto;
-    padding: 1em 1em 1em 1em;
-    border-color: blueviolet;
-    border-style: dotted;
+    padding: 1em;
     border-width: 1em;
+    border-style: dotted;
+    border-color: blueviolet;
     color: darkgreen;
+    text-align: center;
 }
 
 h2 {
+    margin: auto;
+    padding: .5em;
     color: tomato;
+    text-align: center;
 }
 
 p {
@@ -26,7 +30,6 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
     color: magenta;
 }
 
@@ -39,8 +42,9 @@ img {
 }
 
 footer {
+    background-color: aquamarine;
     text-align: center;
     margin-top: 5em;
-    padding: 1em 1em 1em 1em;
+    padding: 1em;
     font-size: smaller;
 }
