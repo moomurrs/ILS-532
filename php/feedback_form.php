@@ -36,9 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="rating5">5</label>
 
         <br>
-
+        <br>
+        <label for="textarea">Comments:</label>
+        <br>
         <textarea placeholder="Enter text..." id="textarea" name="textarea"></textarea>
-
+        <br>
         <br>
 
 
