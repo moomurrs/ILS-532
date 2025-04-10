@@ -1,7 +1,23 @@
 <?php
 
+$name = $email = $rating = $comment = "";
+$name_err = $email_err = "";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST);
+
+    if (empty($_POST["name"])) {
+        $name_err = "Name is required";
+    } else {
+        $name = $_POST["name"];
+    }
+
+    if (empty($_POST["email"])) {
+        $email_err = "Email is required";
+    } else {
+        $email = $_POST["email"];
+    }
+
+    //var_dump($_POST);
 }
 
 ?>
@@ -13,11 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-        <label for="name">Name: </label>
-        <input type="text" name="name"><br>
+        <label for="name">Name:*</label>
+        <input type="text" name="name">
+        <p class="error"><?php echo $name_err; ?></p>
+        <br>
 
-        <label for="email">Email: </label>
-        <input type="text" name="email"><br>
+        <label for="email">Email:*</label>
+        <input type="text" name="email">
+        <p class="error"><?php echo $email_err; ?></p>
+        <br>
 
         Rating:
         <input type="radio" id="rating1" name="rating" value="1">
