@@ -2,6 +2,7 @@
 
 $name = $email = $rating = $comment = "";
 $name_err = $email_err = "";
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -17,7 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST["email"];
     }
 
-    //var_dump($_POST);
+    if (!empty($_POST["rating"])) {
+        $rating = $_POST["rating"];
+    }
+
+    if (!empty($_POST["comment"])) {
+        $comment = $_POST["comment"];
+    }
+
+    if (!empty($_POST["name"]) && !empty($_POST["email"])) {
+        $message = "Thank you!";
+    }
+
+    var_dump($_POST);
+
 }
 
 ?>
@@ -25,18 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE HTML>
 <html>
 
-<body>
-
+<?php if ($message == "") : ?>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
         <label for="name">Name:*</label>
-        <input type="text" name="name">
-        <p class="error"><?php echo $name_err; ?></p>
+        <input type="text" name="name" value="<?php echo $name; ?>">
+        <span class="error"><?php echo $name_err; ?></span>
         <br>
 
         <label for="email">Email:*</label>
-        <input type="text" name="email">
-        <p class="error"><?php echo $email_err; ?></p>
+        <input type="text" name="email" value="<?php echo $email; ?>">
+        <span class="error"><?php echo $email_err; ?></span>
+        <br>
         <br>
 
         Rating:
@@ -57,16 +71,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <br>
         <br>
-        <label for="textarea">Comments:</label>
+        <label for="comment">Comments:</label>
         <br>
-        <textarea placeholder="Enter text..." id="textarea" name="textarea"></textarea>
+        <textarea placeholder="Enter text..." id="comment" name="comment"></textarea>
         <br>
         <br>
-
 
         <input type="submit">
     </form>
+<?php else : ?>
+    <h2>Thank you!</h2>
+    <p>You entered: </p>
+
+    <p>Name: <?php echo $name; ?> </p>
+    <p>Email: <?php echo $email; ?> </p>
+    <p>Rating: <?php echo ($rating ? $rating : "None"); ?> </p>
+    <p>Comments: <?php echo ($comment ? $comment : "None"); ?> </p>
+
+<?php endif; ?>
+
 
 </body>
 
 </html>
+
+<style>
+    .error {
+        color: #FF0000;
+    }
+</style>
