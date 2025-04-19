@@ -51,12 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($valid == 2) {
+        # message to output
         $message = "Thank you!";
 
+        # set session var
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
 
-        # save value in cookie
+        # set value in cookie
         setcookie("rating", $rating, time() + (86400 * 7), "/");
     }
 
@@ -83,6 +85,12 @@ function sani($input)
 
 <?php if ($message == "") : ?>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+        <?php if (isset($_SESSION['name'])) : ?>
+            <p>
+                Welcome back, <?php echo $_SESSION['name']; ?>! We have your email as <?php echo $_SESSION['email']; ?>.
+            </p>
+        <?php endif; ?>
 
         <label for="name">Name:*</label>
         <input type="text" name="name" value="<?php echo $name; ?>">
@@ -127,8 +135,8 @@ function sani($input)
 
     <p>Name: <?php echo $name; ?> </p>
     <p>Email: <?php echo $email; ?> </p>
-    <p>Rating: <?php echo ($rating ? $rating : "None"); ?> </p>
-    <p>Comments: <?php echo ($comment ? $comment : "None"); ?> </p>
+    <p>Rating: <?php echo $rating ? $rating : "None"; ?> </p>
+    <p>Comments: <?php echo $comment ? $comment : "None"; ?> </p>
 
 <?php endif; ?>
 
