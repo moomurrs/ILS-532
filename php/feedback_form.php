@@ -14,15 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (isset($_COOKIE['rating'])) {
             unset($_COOKIE['rating']); // doesn't work for some reason?
-            setcookie("rating", "", time()-3600); // force expire it
+            setcookie("rating", "", time() - 3600); // force expire it
             //print_r("set");
         }
 
-        session_unset(); 
+        session_unset();
         session_destroy();
 
         //die();
-        
+
         header("refresh: 0");
     }
 
@@ -63,16 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //var_dump($_POST);
 } else {
     // GET 
-    if (isset($_COOKIE['rating'])){
+    if (isset($_COOKIE['rating'])) {
         // rating exists in cookie, use it
         $rating = $_COOKIE['rating'];
     }
 }
-
-print_r('session: ');
-print_r($_SESSION);
-print_r('cookie: ');
-print_r($_COOKIE);
 
 
 function sani($input)
@@ -101,19 +96,19 @@ function sani($input)
         <br>
 
         Rating:
-        <input type="radio" id="rating1" name="rating" value="1" <?php echo ($rating == 1 ? "checked" : ""); ?> >
+        <input type="radio" id="rating1" name="rating" value="1" <?php echo ($rating == 1 ? "checked" : ""); ?>>
         <label for="rating1">1</label>
 
-        <input type="radio" id="rating2" name="rating" value="2" <?php echo ($rating == 2 ? "checked" : ""); ?> >
+        <input type="radio" id="rating2" name="rating" value="2" <?php echo ($rating == 2 ? "checked" : ""); ?>>
         <label for="rating2">2</label>
 
-        <input type="radio" id="rating3" name="rating" value="3" <?php echo ($rating == 3 ? "checked" : ""); ?> >
+        <input type="radio" id="rating3" name="rating" value="3" <?php echo ($rating == 3 ? "checked" : ""); ?>>
         <label for="rating3">3</label>
 
-        <input type="radio" id="rating4" name="rating" value="4" <?php echo ($rating == 4 ? "checked" : ""); ?> >
+        <input type="radio" id="rating4" name="rating" value="4" <?php echo ($rating == 4 ? "checked" : ""); ?>>
         <label for="rating4">4</label>
 
-        <input type="radio" id="rating3" name="rating" value="5" <?php echo ($rating == 5 ? "checked" : ""); ?> >
+        <input type="radio" id="rating3" name="rating" value="5" <?php echo ($rating == 5 ? "checked" : ""); ?>>
         <label for="rating5">5</label>
 
         <br>
@@ -137,12 +132,22 @@ function sani($input)
 
 <?php endif; ?>
 
-    <br>
-    <br>
-    <br>
+<br>
+<br>
+<br>
+<div style="border:1px solid red; border-width: thin;">
+    <h3>Debug</h3>
+    <p> Session:
+        <?php echo print_r($_SESSION); ?>
+    </p>
+    <p> Cookies:
+        <?php echo print_r($_COOKIE); ?>
+    </p>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <button id="reset" name="reset" class="error">Reset</button>
+        <button id="reset" name="reset" class="error">Reset (debugging only)</button>
     </form>
+
+</div>
 
 </body>
 
