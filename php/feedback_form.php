@@ -1,11 +1,30 @@
 <?php
 
+session_start();
+
 $name = $email = $rating = $comment = "";
 $name_err = $email_err = "";
 $message = "";
 $valid = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if (isset($_POST['reset'])) {
+        //print_r("clicked");
+
+        if (isset($_COOKIE['rating'])) {
+            unset($_COOKIE['rating']); // doesn't work for some reason?
+            setcookie("rating", "", time()-3600); // force expire it
+            //print_r("set");
+        }
+
+        session_unset(); 
+        session_destroy();
+
+        //die();
+        
+        header("refresh: 0");
+    }
 
     //var_dump(filter_var($_POST["email"], FILTER_VALIDATE_EMAIL));
 
@@ -27,16 +46,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $rating = sani($_POST["rating"]);
     }
 
-    if (!empty(htmlspecialchars($_POST["comment"]))) {
+    if (!empty($_POST["comment"])) {
         $comment = sani($_POST["comment"]);
     }
 
     if ($valid == 2) {
         $message = "Thank you!";
+
+        $_SESSION['name'] = $name;
+        $_SESSION['email'] = $email;
+
+        # save value in cookie
+        setcookie("rating", $rating, time() + (86400 * 7), "/");
     }
 
-    var_dump($_POST);
+    //var_dump($_POST);
+} else {
+    // GET 
+    if (isset($_COOKIE['rating'])){
+        // rating exists in cookie, use it
+        $rating = $_COOKIE['rating'];
+    }
 }
+
+print_r('session: ');
+print_r($_SESSION);
+print_r('cookie: ');
+print_r($_COOKIE);
+
 
 function sani($input)
 {
@@ -100,6 +137,12 @@ function sani($input)
 
 <?php endif; ?>
 
+    <br>
+    <br>
+    <br>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <button id="reset" name="reset" class="error">Reset</button>
+    </form>
 
 </body>
 
